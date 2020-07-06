@@ -8,7 +8,7 @@ function markerSize(mag) {
   }
   
   function markerColor(mag) {
-    if (mag <= 1) {
+   if (mag <= 1) {
         return "#ADFF2F";
     } else if (mag <= 2) {
         return "#9ACD32";
@@ -22,6 +22,13 @@ function markerSize(mag) {
         return "#FF0000";
     };
   }
+  
+
+
+
+
+
+
 
 // Perform a GET request to the query URL
 
@@ -68,7 +75,7 @@ function createFeatures(earthquakeData) {
     tileSize: 512,
     maxZoom: 18,
     zoomOffset: -1,
-    id: "mapbox/streets-v11",
+    id: "mapbox/light-v9",
     accessToken: API_KEY
   });
 
@@ -100,24 +107,29 @@ function createFeatures(earthquakeData) {
     layers: [streetmap, earthquakes]
   });
 
+  //Adding Legend
+
   var legend = L.control({position: 'bottomright'});
 
-  legend.onAdd = function () {
+  legend.onAdd = function (map) {
   
       var div = L.DomUtil.create('div', 'info legend'),
-          magnitudes = [0, 1, 2, 3, 4, 5];
+          magnitudes = [0, 1, 2, 3, 4, 5],
+          
+          labels = ["0-1", "1-2", "2-3", "3-4", "4-5", "5+"];
   
-      for (var i = 0; i < magnitudes.length; i++) {
-          div.innerHTML +=
-              '<i style="background:' + markerColor(magnitudes[i] + 1) + '"></i> ' + 
-      + magnitudes[i] + (magnitudes[i + 1] ? ' - ' + magnitudes[i + 1] + '<br>' : ' + ');
-      }
-  
-      return div;
-  };
-  
-  legend.addTo(myMap);
+          for (var i = 0; i < magnitudes.length; i++) {
+            div.innerHTML +=
+                '<i style="background:' + markerColor(magnitudes[i] + 1) + '"></i> ' + 
+        + magnitudes[i] + (magnitudes[i + 1] ? ' - ' + magnitudes[i + 1] + '<br>' : ' + ');
+        }
+    
+        return div;
+    };
 
+    legend.addTo(myMap);
+
+    
 
   L.control.layers(baseMaps, overlayMaps, {
     collapsed: false

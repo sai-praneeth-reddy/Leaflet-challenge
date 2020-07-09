@@ -4,7 +4,7 @@ var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_mo
 
 
 function markerSize(mag) {
-    return mag * 30000;
+    return mag * 20000;
   }
   
   function markerColor(mag) {
@@ -23,12 +23,6 @@ function markerSize(mag) {
     };
   }
   
-
-
-
-
-
-
 
 // Perform a GET request to the query URL
 
